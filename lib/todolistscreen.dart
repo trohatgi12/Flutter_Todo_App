@@ -24,7 +24,7 @@ class _TodoListScreenState extends State<TodoListScreen> {
         return NewDialogBox();
       },
     );
-    if(todo != null){
+    if (todo != null) {
       setState(() {
         todos.add(todo);
       });
@@ -34,15 +34,44 @@ class _TodoListScreenState extends State<TodoListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Todo List')),
-      body: ToDoList(
-    todos: todos,
-    onToDoToggle: _toggleTodo,
-    ),
-    floatingActionButton: FloatingActionButton(
-    child: Icon(Icons.add),
-    onPressed: _addToDo,
-    )
+        appBar: AppBar(
+          title: Text('Todo List'),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.help),
+              onPressed: (){
+                Navigator.of(context).push(MaterialPageRoute<Null>(
+                    builder: (BuildContext context)
+                    {
+                      return _aboutPage();
+                    }));
+              },
+            ),
+          ],
+        ),
+        body: ToDoList(
+          todos: todos,
+          onToDoToggle: _toggleTodo,
+        ),
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
+          onPressed: _addToDo,
+        ));
+  }
+
+  _aboutPage() {
+    return AlertDialog(
+      title: Text("About this App"),
+      content:
+          Text("This app was developed by Tanay, who is a beginner in Flutter"),
+      actions: <Widget>[
+        FlatButton(
+          child: Text("Close"),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
     );
   }
 }
